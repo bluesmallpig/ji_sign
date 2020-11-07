@@ -25,8 +25,8 @@ func main() {
 		timeNowStr:=timeNow.Format("2006-01-02 15:04:05")
 		fmt.Print(timeNowStr +": test cron ,every hour \n")
 	})
-	c.AddFunc("0 0 9 * * ?", func() {
-		fmt.Print("每天9:00签到")
+	c.AddFunc("0 15 12 * * ?", func() {
+		fmt.Print("每天12:15签到")
 		sign()
 	})
 	c.Start()
@@ -36,11 +36,11 @@ func main() {
 func sign()  {
 	// create a new collector
 	c := colly.NewCollector(
-		colly.AllowedDomains("ji-bt.pw"),
+		colly.AllowedDomains("j01.best"),
 	)
 
 	// authenticate
-	err := c.Post("https://ji-bt.pw/signin", map[string]string{"email": util.AppConfig.GetString("email"), "passwd": util.AppConfig.GetString("passwd")})
+	err := c.Post("https://j01.best/signin", map[string]string{"email": util.AppConfig.GetString("email"), "passwd": util.AppConfig.GetString("passwd")})
 	if err != nil {
 		log.Fatal(err)
 		util.Log(err.Error())
@@ -51,9 +51,9 @@ func sign()  {
 		util.Log("response revice :"+string(r.Body))
 
 	})
-	c.Visit("https://ji-bt.pw/xiaoma/get_user")
+	c.Visit("https://j01.best/xiaoma/get_user")
 	//签到
-	err = c.Post("https://ji-bt.pw/user/checkin", map[string]string{})
+	err = c.Post("https://j01.best/user/checkin", map[string]string{})
 	if err != nil {
 		log.Fatal(err)
 		util.Log(err.Error())
