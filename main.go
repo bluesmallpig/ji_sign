@@ -20,13 +20,13 @@ func init()  {
 
 func main() {
 	c := cron.New()
-	c.AddFunc("0 * * * * ?", func() {
+	c.AddFunc("0 * */1 * * ?", func() {
 		timeNow:=time.Now()
 		timeNowStr:=timeNow.Format("2006-01-02 15:04:05")
 		fmt.Print(timeNowStr +": test cron ,every hour \n")
 	})
-	c.AddFunc("0 15 12 * * ?", func() {
-		fmt.Print("每天12:15签到")
+	c.AddFunc("0 0 9 * * ?", func() {
+		fmt.Print("每天12:00签到")
 		sign()
 	})
 	c.Start()
